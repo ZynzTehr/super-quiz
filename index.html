@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Super Quiz </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  </head>
+
+  <body>
+    <!-- For this project I employed the same strategy as I have for my capstone project. Which is to keep everything in one page and just hide and show
+    things as they are needed. That is the reason for the repeated instances of main and other element. I treated each container as its own seperate page.
+    Therefore I went with this approach to let users with screen readers know what the proper mark up is for each element being displayed at any given
+    time on screen -->
+
+
+    <!-- container for the instructions, add question text and buttons. -->
+    <main id="beginQuiz" class="container hide">
+      <section class="d-flex flex-column justify-content-center align-items-center text-center">
+        <p>
+          ~ Random <em>Questions</em> will appear with several multiple choice options ~ <br>
+          ~ Click on the <em>Answer</em> of your <em>Choice(s)</em> ~ <br>
+          ~ <em>Notice</em> will appear advising you if you answered <em>Correctly</em> or <strong>Incorrectly</strong>
+          ~
+          <br>
+          ~ <em>Button</em> will also appear to move on to the next question ~ <br>
+          ~ <em>Click</em> on this <em>Button</em> to go to the next question ~ <br>
+          ~ <em>Enter</em> your <em>Name</em> below, you <em>Only</em> have to do this <em>Once</em> ~ <br>
+        </p>
+        <section class="col-auto my-2">
+          <div class="form-group form-floating">
+            <input id="name" name="name" type="text" class="form-control text-center" placeholder="Enter Name Here.."
+              required>
+            <label for="name" class="text-dark text-center"> Enter Name Here.. </label>
+          </div>
+          </div>
+          <button id="begin" class="btn btn-primary mb-4" type="submit" onclick="addUser()"> Let's Play! </button>
+        </section>
+      </section>
+      <section class="row-cols text-center m-4">
+        <span class="message"> Would you like to add your own question to the quiz? </span>
+        <button id="addQnA" class="btn btn-primary m-2"> Click Here </button>
+      </section>
+    </main>
+
+    <!-- container for the form, instructions to add question text and buttons. -->
+    <div id="addQtn" class="container hide">
+      <main class="row-cols text-center">
+        <p>
+          ~ Fill out the <em>Form</em> below and <em>Click</em> the <em>Submit Button</em> ~ <br>
+          ~ Your <em>Question</em> will be added, and then you will <em>Return</em> ~ <br>
+          ~ To the <em>Home Page</em> where you can <em>Begin the Quiz!</em> ~ <br><br>
+          ~ If you're <em>Here</em> by mistake, <em>Clicking</em> the <em>Submit</em> button will take you <em>Back</em>
+          to the ~ <br> ~ <strong>Beginning</strong> ~ <br>
+        </p>
+        <!-- <form> -->
+        <form class="form-row  justify-content-center align-items-center">
+          <div class="col-auto form-group form-floating my-4">
+            <input id="newQ" name="newQ" type="text" class="form-control" placeholder="New Question.." required
+              autofocus>
+            <label for="newQ" class="text-dark"> New Question.. </label>
+          </div>
+          <div class="col-auto form-group form-floating my-4">
+            <input id="posibleAnsOne" name="posibleAnsOne" type="text" class="form-control"
+              placeholder="Possible Answer #1.." required>
+            <label for="posibleAnsOne" class="text-dark"> Possible Answer #1.. </label>
+          </div>
+          <div class="col-auto form-group form-floating my-4">
+            <input id="posibleAnsTwo" name="posibleAnsTwo" type="text" class="form-control"
+              placeholder="Possible Answer #2.." required>
+            <label for="posibleAnsTwo" class="text-dark"> Possible Answer #2.. </label>
+          </div>
+          <div class="col-auto form-group form-floating my-4">
+            <input id="posibleAnsThree" name="posibleAnsThree" type="text" class="form-control"
+              placeholder="Possible Answer #3.." required>
+            <label for="posibleAnsThree" class="text-dark"> Possible Answer #3.. </label>
+          </div>
+          <div class="col-auto form-group form-floating my-4">
+            <input id="posibleAnsFour" name="posibleAnsFour" type="text" class="form-control"
+              placeholder="Possible Answer #4.." required>
+            <label for="posibleAnsFour" class="text-dark"> Possible Answer #4.. </label>
+          </div>
+          <div class="col-auto form-group form-floating my-4">
+            <input id="correctAnswer" name="correctAnswer" type="text" class="form-control"
+              placeholder="Correct Answer to your Question.." required>
+            <label for="correctAnswer" class="text-dark"> Correct Answer to your Question.. </label>
+          </div>
+          <button id="submitBtn" type="submit" class="btn btn-primary my-4"> Submit </button>
+        </form>
+        <!-- end of </form> -->
+        <span class="message"> Please note that you have to fill out all the fields for your question to work
+          Properly. </span>
+      </main> <!-- row -->
+    </div> <!-- container -->
+
+    <!-- container for the quiz section: scoreboard, counter, and buttons. -->
+    <div id="quiz" class="container hide">
+      <main class="row justify-content-center margin align-self-center">
+        <div class="col">
+          <h2 id="qtnCntr" class="display-6 text-center"></h2>
+          <header class="d-flex justify-content-center display-1 text-center">
+            <div id="scoreLabel" class="display-1 text-center"> Score: </div>
+            <div id="score" class="display-1 text-center ms-3 "></div>
+          </header>
+          <h3 id="qtnScreen" class="row-cols text-center my-4"></h3>
+          <div id="answers" class="row-cols align-self-center justify-self-center"></div>
+          <section class="d-flex flex-column align-items-center">
+            <button id="nextBtn" class="text-center"> next </button>
+            <button id="restart" class="text-center ms-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              restart
+            </button>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- container for the quiz title, animated grid, and jump in button. -->
+    <section id="jumpIn" class="container hide">
+      <header class="d-flex flex-column align-items-center mt-4">
+        <h1 class="display-2 text-center my-5 title glow" draggable="true"> Welcome to Super Quiz </h1>
+        <figure class="staggering-grid-demo">
+        <div class="grid">
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+          <div class="small square el" style="transform: scale(1);"></div>
+        </div>
+        <div class="grid shadow">
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+          <div class="small square"></div>
+        </div>
+      </figure>
+        <button id="jumpInBtn" class="text-center mt-5"> jump in </button>
+      </header>
+    </section>
+
+    <!-- Modal code -->
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div id="form" class="modal-header d-flex flex-column">
+                  <h5 class="modal-title mt-4" id="staticBackdropLabel"> Wanna add your own Question? </h5>
+                </div>
+                <hr>
+                <div class="modal-body">
+                  <!-- <form> -->
+                  <form class="form-row  justify-content-center align-items-center">
+                    <div class="col-auto my-4">
+                      <input id="newQstn" name="newQstn" type="text" class="form-control" placeholder="New Question.."
+                        required autofocus />
+                    </div>
+                    <div class="col-auto my-4">
+                      <input id="ansOne" name="ansOne" type="text" class="form-control"
+                        placeholder="Possible Answer #1.." required />
+                    </div>
+                    <div class="col-auto my-4">
+                      <input id="ansTwo" name="ansTwo" type="text" class="form-control"
+                        placeholder="Possible Answer #2.." required />
+                    </div>
+                    <div class="col-auto my-4">
+                      <input id="ansThree" name="ansThree" type="text" class="form-control"
+                        placeholder="Possible Answer #3.." required />
+                    </div>
+                    <div class="col-auto my-4">
+                      <input id="ansFour" name="ansFour" type="text" class="form-control"
+                        placeholder="Possible Answer #4.." required />
+                    </div>
+                    <div class="col-auto my-4">
+                      <input id="correctAns" name="correctAns" type="text" class="form-control"
+                        placeholder="Correct Answer to your Question.." required />
+                    </div>
+                  </form>
+                  <!--end of </form> -->
+                </div>
+                <hr>
+                <div class="modal-footer">
+                  <button type="button" class="Btn me-4" data-bs-dismiss="modal"> Skip </button>
+                  <button type="submit" class="Btn me-4" data-bs-dismiss="modal" onclick="modalAddNewQtn()"> Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Modal Code -->
+
+    <footer id="footer" class="bottom hide mt-5 py-1">
+      <div class="d-flex flex-column align-items-center my-2">
+        <aside class="col-6 text-center">
+          <i class="fab fa-fw" aria-hidden="true" title="Copy to use facebook"><a
+              href="www.facebook.com/thelastmile"></a></i> <!-- Facebook Icon -->
+          <i class="fab fa-fw" aria-hidden="true" title="Copy to use twitter"><a href="www.twitter.com/TLM"></a>
+            </i><!-- Twitter Icon -->
+          <i class="fab fa-fw" aria-hidden="true" title="Copy to use instagram"><a
+              href="www.instagram.com/thelastmileorg"></a> </i> <!-- Instagram Icon -->
+          <i class="fab fa-fw" aria-hidden="true" title="Copy to use linkedin"><a
+              href="www.linkedin/company/the-last-mile"></a> </i> <!-- Linkedin Icon -->
+        </aside>
+        <span class=" ">Stay Connected!</span>
+        <aside class="col-6 text-center">
+          <span class=""> &copy; Designed and Developed by Jorge Alberto Bucio</span>
+        </aside>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"  crossorigin="anonymous"></script>
+    <script src="./js/questions.js"></script>
+    <script src="./js/scripts.js"></script>
+  </body>
+
+</html>

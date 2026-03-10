@@ -1,0 +1,307 @@
+/* For this project. I did not put all the repeated colors in common styles because its easy to just
+change colors at the :root, and with the names I chose should be easy to make changes. I'm not sure if
+it would be required to put the variables in the common styles. So I left it alone */
+html {
+  box-sizing: border-box;
+  font: normal 100%/1.5 Georgia, serif;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+:root {
+  --background: hsl(0, 0%, 0%);
+  --font: hsl(60, 53%, 91%);
+  --correct: hsl(120, 100%, 25%);
+  --scoreTitle: hsl(300, 100%, 25%);
+  --farewell: hsl(177, 70%, 41%);
+  --score: hsl(195, 53%, 79%);
+  --incorrect: hsl(0, 100%, 50%);
+  --btnHvr: hsl(0, 100%, 27%);
+  --answerHover: hsl(39, 100%, 50%);
+  --buttons: hsl(0, 0%, 50%);
+  --btnFcs: hsl(0, 0%, 66%);
+  --btnFntFcs: hsl(0, 0%, 20%);
+}
+
+/*=============== Global Styles ===============*/
+
+body {
+  letter-spacing: 3px;
+  background-color: var(--background);
+  color: var(--font);
+  font-variant: small-caps;
+  font-style: oblique;
+}
+
+h1 {
+  color: var(--btnHvr);
+}
+
+em {
+  color: var(--correct);
+  opacity: 90%;
+}
+
+strong {
+  color: var(--incorrect);
+  opacity: 80%;
+}
+
+input[type=text]:focus {
+    border-width: 2px 2px 2px 2px;
+    border-color: var(--answerHover);
+    background-color: var(--score);
+    font-size: 1.5rem;
+    padding: .5rem;
+}
+
+i {
+  color: var(--background);
+  cursor: pointer;
+}
+
+i:hover {
+  transform: scale(1.4);
+  color: var(--font);
+}
+
+footer {
+  font-size: 1.1rem;
+  color:var(--background);
+  background-color: var(--btnHvr);
+  opacity: 78%;
+}
+/*=============== End of Global Styles ===============*/
+
+/*=============== Common Styles ===============*/
+#qtn, strong, em {
+  font-size: 2rem;
+}
+
+input, strong {
+  opacity: 80%;
+}
+
+i, i:hover {
+  transition: transform .5s ease-in-out, color 1s ease-in-out;
+}
+
+#staticBackdrop .modal-content {
+  background-color: var(--font);
+  color: var(--btnFntFcs);
+  padding: 2rem;
+}
+
+#correctAns, #wrongAns {
+  background-color: var(--background);
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--score);
+  border: none;
+  font-variant: small-caps;
+  transition: transform 1s ease-in-out, color 1.6s ease-in-out;
+}
+
+#correctAns:hover, #wrongAns:hover {
+  background-color: var(--background);
+  transform: scale(1.2);
+  color: var(--answerHover);
+  transition: transform .6s ease-in-out, color 1s ease-in-out;
+}
+
+#submitBtn, #begin, #restart, #nextBtn, #addQnA, #jumpInBtn, .Btn {
+  margin-top: 2rem;
+  padding: .6rem 2rem;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-style: oblique;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--buttons);
+  color: var(--font);
+  opacity: 80%;
+}
+
+#submitBtn:hover, #begin:hover, #restart:hover, #nextBtn:hover, #addQnA:hover, #jumpInBtn:hover, .Btn:hover  {
+  background-color: var(--background);
+  color: var(--btnHvr);
+  box-shadow: 0px 0px 4px 4px var(--btnHvr);
+  transform: scale(1.1);
+}
+
+#submitBtn:focus, #begin:focus, #restart:focus, #nextBtn:focus, #addQnA:focus, #jumpInBtn:focus, .Btn:focus {
+  background-color: var(--font);
+  color: var(--btnFntFcs);
+  box-shadow: 0px 0px 4px 4px var(--btnFcs);
+  transform: scale(1.1);
+}
+
+#submitBtn, #begin, #restart, #nextBtn, #addQnA, #jumpInBtn, .Btn,
+#submitBtn:hover, #begin:hover, #restart:hover, #nextBtn:hover, #addQnA:hover, #jumpInBtn:hover,
+#submitBtn:focus, #begin:focus, #restart:focus, #nextBtn:focus, #addQnA:focus, #jumpInBtn:focus {
+  transition: box-shadow ease-in-out 1.1s, transform ease-in-out .5s, opacity ease-in-out 1.2s, background-color ease-in-out 1s, color ease-in-out 1.2s;
+}
+
+/*=============== End of Common Styles ===============*/
+
+/*=============== Game Styles ===============*/
+.category {
+  font-family: inherit;
+}
+
+.title {
+  font-family: fantasy;
+}
+
+#answers {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  list-style: none;
+}
+
+#staticBackdrop input[type=text]  {
+  background-color: var(--btnHvr);
+}
+
+#staticBackdrop input[type=text]:focus {
+  border-color: var(--btnFntFcs);
+  color: var(--font);
+}
+
+#beginQuiz {
+  margin-top: 2rem;
+}
+
+#qtnCntr {
+color: var(--score);
+}
+
+#scoreLabel {
+  color: var(--scoreTitle);
+}
+
+#score {
+  color: var(--score);
+}
+
+.message {
+  color: var(--incorrect);
+  font-size: 1.4rem;
+  padding: .8rem;
+  border-radius: 10px;
+}
+
+.correct {
+  color: var(--correct);
+}
+
+.wrong {
+  color: var(--incorrect);
+}
+
+.margin {
+  margin-top: 3.8rem;
+}
+
+#qtn {
+color: var(--correct);
+}
+
+#farewell {
+  font-size: 3.2rem;
+  font-weight: bolder;
+  font-style: oblique;
+  cursor: none;
+}
+
+.finalScore {
+  font-size: 3rem;
+  color: var(--farewell);
+  cursor: none;
+}
+
+p {
+  font-style: oblique;
+  line-height: 2.4rem;
+  margin-top: 4rem;
+  color: var(--font);
+  font-size: 1.6rem;
+}
+
+.glow {
+  animation: glow 3s ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 100%;
+  }
+  50%{
+    opacity: 60%;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.hidden {
+  opacity: 0%;
+}
+
+.showing {
+  opacity: 80%;
+  transition: opacity 3s ease-in;
+}
+
+/*=============== End of Game Styles ===============*/
+
+/*=============== Styles and Animations for Title and Grid at the Beginning ===============*/
+/* Styles for landing page grid animation with animejs 3.2 */
+.staggering-grid-demo {
+  margin-top: 10rem;
+  transform: scale(2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 290px;
+  height: 100%;
+ }
+
+ .grid {
+   display: flex;
+   flex-wrap: wrap;
+ }
+
+ .shadow {
+     position: absolute;
+     opacity: 10%;
+ }
+
+ .square {
+     pointer-events: none;
+     position: relative;
+     width: 28px;
+     height: 28px;
+     margin: 1px;
+     background-color: var(--btnHvr);
+     font-size: 14px;
+     opacity: 60%;
+ }
+
+ .small {
+     width: 18px;
+     height: 18px;
+ }
+ /* End of Styles for landing grid page animation with animejs 3.2 */
