@@ -26,11 +26,11 @@ Super Quiz evaluates and catalogs real-time coding knowledge. The application ut
 ### Installation & Execution
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ZynzTehr/super-quiz-animeJs-3.2.git
+   git clone https://github.com/ZynzTehr/super-quiz.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd super-quiz-animeJs-3.2
+   cd super-quiz
    ```
 3. Open `index.html` in your preferred web browser to run the application locally.
 

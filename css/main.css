@@ -233,24 +233,6 @@ p {
   font-size: 1.6rem;
 }
 
-.glow {
-  animation: glow 3s ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-@keyframes glow {
-  0% {
-    opacity: 100%;
-  }
-  50%{
-    opacity: 60%;
-    transform: scale(1.02);
-  }
-  100% {
-    opacity: 100%;
-  }
-}
-
 .hide {
   display: none;
 }
@@ -260,15 +242,15 @@ p {
 }
 
 .showing {
-  opacity: 80%;
-  transition: opacity 3s ease-in;
+  opacity: 100%;
+  /* transition: opacity 2s ease-in-out; */
 }
 
 /*=============== End of Game Styles ===============*/
 
 /*=============== Styles and Animations for Title and Grid at the Beginning ===============*/
-/* Styles for landing page grid animation with animejs 3.2 */
-.staggering-grid-demo {
+/* Styles for landing page grid animation with animejs 3.0 */
+/* .staggering-grid-demo {
   margin-top: 10rem;
   transform: scale(2);
   display: flex;
@@ -303,5 +285,113 @@ p {
  .small {
      width: 18px;
      height: 18px;
+ } */
+ /* End of Styles for landing grid page animation with animejs 3.0 */
+
+ /* Styles for landing page title animation with animejs 4.0 */
+ .char-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50% 1rem;
+}
+
+.face {
+  position: absolute;
+  left: 0;
+}
+
+.face-top {
+  color: lightpink;
+  bottom: 100%;
+  transform-origin: 50% 100%;
+  transform: rotateX(-90deg);
+}
+
+.face-front {
+  color: cyan;
+  /* top: 50%; */
+  transform-origin: 50% 0%;
+  transform: rotateX(90deg);
+}
+
+.face-bottom {
+  color: magenta;
+  top: 100%;
+  transform-origin: 50% 0%;
+  transform: rotateX(90deg);
+}
+/* End of Styles for landing page title animation with animejs 4.0 */
+
+/* Styles for landing page grid animation with animejs 4.0 */
+ .docs-demo-html {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 19rem;
+}
+
+.docs-demo-html .small.row {
+  height: 1.5rem;
+  margin-top: .125rem;
+  margin-bottom: .125rem;
+}
+
+.docs-demo-html .justified.row {
+  justify-content: space-between;
+}
+.docs-demo-html .row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 100%;
+  height: 1.5rem;
+  padding: 1px 0;
+}
+
+.docs-demo-html .small .square, .docs-demo-html .small .circle {
+  width: 1.5rem;
+  height: 1.5rem;
+  opacity: 80%;
+  /* color: darkred; */
+}
+
+.docs-demo-html [class*=square]:not([class*=grid]) {
+  border-radius: .25rem; 
+}
+
+.docs-demo-html .particle,
+.docs-demo-html [class*=square]:not([class*=grid]),
+ .docs-demo-html [class*=circle],
+ .docs-demo-html [class*=triangle] {
+    z-index: 2;
+    flex-shrink: 0;
+    position: relative;
+    width: calc(1.5rem - 2px);
+    height: calc(1.5rem - 2px);
+    margin-top: 1px;
+    margin-left: 1px;
+    background-color: currentColor;
+    /* opacity: 80%; */
  }
- /* End of Styles for landing grid page animation with animejs 3.2 */
+ /* End of Styles for landing page grid animation with animejs 4.0 */
+
+.glow {
+  animation: glow 3s ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes glow {
+  0% {
+    opacity: 100%;
+  }
+  50%{
+    opacity: 60%;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+/*=============== End of Styles and Animations for Title and Grid at the Beginning ===============*/

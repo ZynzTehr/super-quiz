@@ -335,14 +335,86 @@ window.addEventListener('DOMContentLoaded', (() => {
 }));
 
 
-/* This is the grid animation at the start when page is loaded done with animejs 3.0 */
-id('jumpIn').classList.remove('hide'); // Unhide the wrapper section so the grid animation is visible.
-anime({
-  targets: '.staggering-grid-demo .el',
-  scale: [
-    { value: .02, easing: 'easeOutSine', duration: 800 },
-    { value: 1, easing: 'easeInOutQuad', duration: 1000 }
-  ],
-  delay: anime.stagger(200, { grid: [14, 5], from: 'center' }),
-  loop: true
-});
+/* This is for the landing page title and grid animations with animejs 4.0 */
+window.onload = () => {
+	const { animate } = anime;
+	const squares = anime.utils.$('.square');
+
+	function animateGrid() {
+		anime.animate(squares, {
+			scale: [{ to: [0, 1.25] }, { to: 0 }],
+			boxShadow: [
+				{ to: '0 0 1rem 0 currentColor' },
+				{ to: '0 0 0rem 0 currentColor' },
+			],
+			delay: anime.stagger(100, {
+				grid: [11, 4],
+				from: anime.utils.random(0, 44),
+			}),
+			onComplete: animateGrid,
+		});
+	}
+
+	animateGrid();
+
+	id('jumpIn').classList.remove('hide'); // shows jumpIn container once page loads.
+
+	// Title custom HTML Animation with animejs 4.0
+	// anime.splitText('h1', {
+	// 	chars: `<span class="char-3d word-{i}">
+	//     <em class="face face-top">{value}</em>
+	//     <em class="face-front">{value}</em>
+	//     <em class="face face-bottom">{value}</em>
+	//   </span>`,
+	// });
+
+	// const charsStagger = anime.stagger(100, { start: 0 });
+
+	// anime.createTimeline({ defaults: { ease: 'linear', loop: true, duration: 1200 } })
+	// 	.add('.char-3d', { rotateX: -90 }, charsStagger)
+	// 	.add('.char-3d .face-top', { opacity: [0.5, 0] }, charsStagger)
+	// 	.add('.char-3d .face-front', { opacity: [1, 0.5] }, charsStagger)
+	// 	.add('.char-3d .face-bottom', { opacity: [0.5, 1] }, charsStagger);
+
+	// Word text animation with animejs 4.0 code block above has to be commented out for code below to work..
+	const { words } = anime.splitText('h1', {
+		words: { wrap: 'clip' },
+	});
+
+	anime.animate(words, {
+		y: [{ to: ['100%', '0%'] }, { to: '-100%', delay: 2600, ease: 'in(3)' }],
+		duration: 750,
+		ease: 'out(3)',
+		delay: anime.stagger(400),
+		loop: false,
+		fontSize: '6rem',
+  } );
+
+  setTimeout(() => {
+		id('firstTitle').classList.add('hidden'); // hides first title after its animation ends.
+	}, 5000);
+
+	setTimeout(() => {
+    // timer
+    id('secondTitle').classList.remove('hide'); // hides second title after first title animation ends.
+
+    const { chars } = anime.splitText('h4', {
+			chars: { wrap: 'clip' },
+		});
+
+		anime.animate(chars, {
+			y: [{ to: ['100%', '0%'] }, { to: '-100%', delay: 4200, ease: 'in(3)' }],
+			duration: 750,
+			ease: 'out(3)',
+			delay: anime.stagger(120),
+			loop: false,
+      fontSize: '4rem',
+      color: 'darkred'
+		});
+	}, 5000); // timer interval in milliseconds.
+
+	setTimeout(() => {
+    // timer
+		$('#jumpInBtn').slideDown('slow'); // jQuery animation to slide down jumpIn container once page loads.
+	}, 14000); // timer interval in milliseconds.
+};
